@@ -29,34 +29,34 @@
  	// The default config
  	DoubleConfirm.DEFAULTS = {
  		"countdown": 3,
- 		"countdown-format": "§ (#)",
- 		"countdown-css": "disabled",
+ 		"countdownFormat": "Really §? #",
+ 		"countdownCss": "disabled",
  		"cooldown": 10,
- 		"cooldown-css": "",
- 		"on-countdown": $.noop,
- 		"on-cooldown": $.noop
+ 		"cooldownCss": "",
+ 		"onCountdown": null,
+ 		"onCooldown": null
  	};
 
+ 	// Returns a string where the replacements in the given format were expanded
  	DoubleConfirm.prototype.format = function(format) {
  		if(typeof format === "undefined") {
- 			format = this.options["countdown-format"];
+ 			format = this.options["countdownFormat"];
  		}
 
- 		return (typeof format === "function") ? format(this) : format.replace("§", this.html).replace("#", this.countdown);
+ 		return (typeof format === "function") ? format(this) : format.replace("§", this.html).replace("#", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
  	};
 
+ 	// Disables the button
  	DoubleConfirm.prototype.disable = function() {
- 		this.html = this.$element.html();
-
- 		this.$element.toggleClass(this.options["countdown-css"]);
- 		this.$element.css("min-width", this.$element.width() + "px");
+ 		this.$element.toggleClass(this.options["countdownCss"]);
+ 		this.$element.css("min-width", this.$element.outerWidth() + "px");
  		this.$element.blur();
  	};
 
+ 	// Enables the button
  	DoubleConfirm.prototype.enable = function() {
- 		this.$element.toggleClass(this.options["countdown-css"]);
+ 		this.$element.toggleClass(this.options["countdownCss"]);
  		this.$element.css("min-width", "");
- 		this.$element.html(this.html);
  	};
 
  	// Handles click on the bound element
@@ -73,36 +73,39 @@
 
  	// Starts the countdown phase
  	DoubleConfirm.prototype.doCountdown = function() {
+ 		this.html = this.$element.html();
  		this.countdown = parseInt(this.options["countdown"]);
  		this.disable();
  		this.tick();
 
-		if($.isFunction(this.options["on-countdown"])) {
-			this.options["on-countdown"](this);
+		if($.isFunction(this.options["onCountdown"])) {
+			this.options["onCountdown"](this);
 		}
  	};
 
  	// Starts the cooldown phase in which the button is normally clickable
  	DoubleConfirm.prototype.doCooldown = function() {
- 		var that = this;
-
+ 		this.$element.html(this.format());
  		this.enable();
+
+ 		var that = this;
  		this.cooldownTimeoutId = setTimeout(function() {
+ 			that.$element.html(that.html);
 			that.countdown = -1;
 		}, (parseInt(this.options["cooldown"]) * 1000));
 
-		if($.isFunction(this.options["on-cooldown"])) {
-			this.options["on-cooldown"](this);
+		if($.isFunction(this.options["onCooldown"])) {
+			this.options["onCooldown"](this);
 		}
  	};
 
  	// The countdown tick that fires every second
  	DoubleConfirm.prototype.tick = function() {
- 		var that = this;
-
  		if(this.countdown > 0) {
  			this.$element.html(this.format());
  			this.countdown--;
+
+ 			var that = this;
  			this.countdownTimeoutId = setTimeout(function() {
  				that.tick();
  			}, 1000);
@@ -134,7 +137,7 @@
 
 
 
- 	// Add Data-API listener
+ 	// The Data-API listener
  	$(document).on("click.double-confirm.data-api", '[data-toggle="double-confirm"]', function(e) {
  		$(this).doubleConfirm('onClick', e);
  	});
