@@ -13,13 +13,16 @@
 			</p>
 			<p>
 				<a href="http://example.com" class="btn btn-primary" data-toggle="double-confirm">Go to example.com</a>
+				<a href="http://example.com" class="btn btn-primary" id="js-double-confirm">Go to another example.com</a>
 			</p>
 		</div>
 
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 		<script src="./js/jquery.doubleconfirm.js"></script>
 		<script>
-
+			$(function(){
+				$("#js-double-confirm").doubleConfirm();
+			});
 		</script>
 
 	</body>
