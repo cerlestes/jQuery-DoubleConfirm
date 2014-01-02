@@ -55,21 +55,21 @@ $.doubleConfirm("setDefault", {
 Options
 -------
 
-* **countdown** (Number, default: 3)
+* **countdown** (Number, default: 3)  
   The number of seconds before the button becomes clickable
-* **countdownFormat** (String or Function, default: "Really ${original}? ${counterp}")
+* **countdownFormat** (String or Function, default: "Really ${original}? ${counterp}")  
   The text to display while the countdown is running. If a function is given, it's return value is used. Use **${original}** as a replacement-token for the button's original HTML-content, **${counter}** for the countdown and **${counterp}** for a countdown wrapped in parentheses that is only shown when t > 0
-* **countdownCss** (String, default: "disabled")
+* **countdownCss** (String, default: "disabled")  
   CSS-classes to toggle when button is entering countdown-state and again when leaving to cooldown. Use this to visually disable the button.
-* **cooldown** (Number, default: 10)
+* **cooldown** (Number, default: 10)  
   The number of seconds before the button resets to its original state again
-* **cooldownCss** (String)
+* **cooldownCss** (String)  
   CSS-classes to toggle when button is entering cooldown-state and again when resetting. Use this to add additional functionality via delegated click-handlers, e.g. [Ladda](http://lab.hakim.se/ladda/) buttons.
-* **onCountdown** (Function)
+* **onCountdown** (Function)  
   A handler function that is executed after the button has entered countdown-mode and is not clickable.
-* **onCooldown** (Function)
+* **onCooldown** (Function)  
   A handler function that is executed after the button has left countdown-mode, entered cooldown-mode and is going to execute its real function when clicked.
-* **onReset** (Function)
+* **onReset** (Function)  
   A handler function that is executed after the button has left cooldown-mode and is disarmed.
 
 
