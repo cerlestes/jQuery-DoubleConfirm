@@ -34,7 +34,7 @@
  	// The default config
  	DoubleConfirm.DEFAULTS = {
  		"countdown": 3,
- 		"countdownFormat": "Really %? #",
+ 		"countdownFormat": "Really ${original}? ${counterp}",
  		"countdownCss": "disabled",
  		"cooldown": 10,
  		"cooldownCss": "",
@@ -49,7 +49,7 @@
  			format = this.options["countdownFormat"];
  		}
 
- 		return (typeof format === "function") ? format(this) : format.replace("%", this.original).replace("#", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
+ 		return (typeof format === "function") ? format(this) : format.replace("${original}", this.original).replace("${counter}", this.countdown).replace("${counterp}", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
  	};
 
  	// Handles click on the bound element
