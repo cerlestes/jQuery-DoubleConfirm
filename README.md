@@ -51,7 +51,8 @@ $.doubleConfirm("setDefault", {
 });
 ```
 
-![DogeConfirm](http://i.imgur.com/qUwMBs8.png "Doge Confirm")
+![DogeConfirm](http://i.imgur.com/fQ9dw0E.jpg "Doge Confirm")
+
 
 
 Options
