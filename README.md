@@ -58,7 +58,7 @@ Options
 * **countdown** (Number, default: 3)
   The number of seconds before the button becomes clickable
 * **countdownFormat** (String or Function, default: "Really ${original}? ${counterp}")
-  The text to display while the countdown is running. If a function is given, it's return value is used. Use **${original}** as a replacement-token for the button's original HTML-content, ${counter} for the countdown and ${counterp} for a countdown wrapped in parentheses that is only shown when t > 0
+  The text to display while the countdown is running. If a function is given, it's return value is used. Use **${original}** as a replacement-token for the button's original HTML-content, **${counter}** for the countdown and **${counterp}** for a countdown wrapped in parentheses that is only shown when t > 0
 * **countdownCss** (String, default: "disabled")
   CSS-classes to toggle when button is entering countdown-state and again when leaving to cooldown. Use this to visually disable the button.
 * **cooldown** (Number, default: 10)
