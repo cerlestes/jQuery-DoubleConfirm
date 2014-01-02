@@ -4,6 +4,8 @@ jQuery DoubleConfirm Plugin
 A jQuery plugin that allows buttons to transform into a confirmation mode when clicked initially, so that they need to be clicked a second time to confirm the user's choice.
 This is useful for buttons with severe consequences like deletion and where an "Are you sure?" kind of popup is not wanted.
 
+![Demo](http://i.imgur.com/aIH4weT.png)
+
 
 
 How to use?
