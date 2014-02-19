@@ -33,7 +33,7 @@
 
  	// The default config
  	DoubleConfirm.DEFAULTS = {
- 		"countdown": 3,
+ 		"countdown": 2,
  		"countdownFormat": "Really ${original}? ${counterp}",
  		"countdownCss": "disabled",
  		"cooldown": 10,
