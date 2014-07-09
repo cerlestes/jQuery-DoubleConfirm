@@ -49,7 +49,11 @@
  			format = this.options["countdownFormat"];
  		}
 
- 		return (typeof format === "function") ? format(this) : format.replace("${original}", this.original).replace("${counter}", this.countdown).replace("${counterp}", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
+ 		while(typeof format === "function") {
+ 			format = format(this);
+ 		}
+
+ 		return format.replace("${original}", this.original).replace("${counter}", this.countdown).replace("${counterp}", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
  	};
 
  	// Handles click on the bound element
