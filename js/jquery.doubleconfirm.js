@@ -1,5 +1,5 @@
 /*!
- * jQuery DoubleConfirm Plugin 1.0.0
+ * jQuery DoubleConfirm Plugin 2.0.0
  * https://github.com/cerlestes/jQuery-DoubleConfirm
  *
  * Copyright 2013, Kevin Fischer
@@ -33,8 +33,8 @@
 
  	// The default config
  	DoubleConfirm.DEFAULTS = {
+ 		"format": "Really ##original## ##counterp##",
  		"countdown": 2,
- 		"countdownFormat": "Really ${original}? ${counterp}",
  		"countdownCss": "disabled",
  		"cooldown": 10,
  		"cooldownCss": "",
@@ -46,14 +46,14 @@
  	// Returns a string where the replacements in the given format were expanded
  	DoubleConfirm.prototype.format = function(format) {
  		if(typeof format === "undefined") {
- 			format = this.options["countdownFormat"];
+ 			format = this.options["format"];
  		}
 
  		while(typeof format === "function") {
  			format = format(this);
  		}
 
- 		return format.replace("${original}", this.original).replace("${counter}", this.countdown).replace("${counterp}", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
+ 		return format.replace("##original##", this.original).replace("##counter##", this.countdown).replace("##counterp##", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
  	};
 
  	// Handles click on the bound element

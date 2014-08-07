@@ -49,7 +49,7 @@ Change the plugin's setting on a single button via data attributes:
 Change options globally if you need them this way for every button (useful for localization):
 ```javascript
 $.doubleConfirm("setDefault", {
-	"countdownFormat": "Wirklich ${original}? ${counterp}"
+	"format": "Wirklich ##original##? ##counterp##"
 });
 ```
 
@@ -62,14 +62,14 @@ Options
 
 Options can be provided via global default values, the data-attributes and an options object. Default values are overwritten by provided data-attributes, which again are overwritten by an options object's provided values.
 
+* **format** (String or Function, default: "Really ##original##? ##counterp##")  
+  The text to display while the countdown is running. If a function is given, it's return value is used. Use **##original##** as a replacement-token for the button's original HTML-content, **##counter##** for the countdown and **##counterp##** for a countdown wrapped in parentheses that is only shown when t > 0
 * **countdown** (Number, default: 3)  
   The number of seconds before the button becomes clickable
-* **cooldown** (Number, default: 10)  
-  The number of seconds before the button resets to its original state again
-* **countdownFormat** (String or Function, default: "Really ${original}? ${counterp}")  
-  The text to display while the countdown is running. If a function is given, it's return value is used. Use **${original}** as a replacement-token for the button's original HTML-content, **${counter}** for the countdown and **${counterp}** for a countdown wrapped in parentheses that is only shown when t > 0
 * **countdownCss** (String, optional, default: "disabled")  
   CSS-classes to toggle when button is entering countdown-state and again when leaving to cooldown. Use this to visually disable the button.
+* **cooldown** (Number, default: 10)  
+  The number of seconds before the button resets to its original state again
 * **cooldownCss** (String, optional)  
   CSS-classes to toggle when button is entering cooldown-state and again when resetting. Use this to add additional functionality via delegated click-handlers, e.g. [Ladda](http://lab.hakim.se/ladda/) buttons.
 * **onCountdown** (Function, optional)  
