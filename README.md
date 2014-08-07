@@ -64,7 +64,7 @@ Options can be provided via global default values, the data-attributes and an op
 
 * **format** (String or Function, default: "Really ##original##? ##counterp##")  
   The text to display while the countdown is running. If a function is given, it's return value is used. Use **##original##** as a replacement-token for the button's original HTML-content, **##counter##** for the countdown and **##counterp##** for a countdown wrapped in parentheses that is only shown when t > 0
-* **countdown** (Number, default: 3)  
+* **countdown** (Number, default: 2)  
   The number of seconds before the button becomes clickable
 * **countdownCss** (String, optional, default: "disabled")  
   CSS-classes to toggle when button is entering countdown-state and again when leaving to cooldown. Use this to visually disable the button.

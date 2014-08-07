@@ -1,5 +1,5 @@
 /*!
- * jQuery DoubleConfirm Plugin 2.0.0
+ * jQuery DoubleConfirm Plugin 2.0.1
  * https://github.com/cerlestes/jQuery-DoubleConfirm
  *
  * Copyright 2013, Kevin Fischer
@@ -33,7 +33,7 @@
 
  	// The default config
  	DoubleConfirm.DEFAULTS = {
- 		"format": "Really ##original## ##counterp##",
+ 		"format": "Really ##original##? ##counterp##",
  		"countdown": 2,
  		"countdownCss": "disabled",
  		"cooldown": 10,
