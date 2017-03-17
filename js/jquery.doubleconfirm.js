@@ -24,6 +24,10 @@
 		this.cooldownTimeoutId = 0;
 		this.original = "";
 
+		// these will be re-set on every doubleconfirm run
+		this.currentCountdownClasses = [];
+		this.currentCooldownClasses = [];
+
 		// Add click eventhandler
 		var that = this;
 		this.$element.on('click.double-confirm', function(e){
@@ -72,12 +76,16 @@
 
 	// Starts the countdown phase
 	DoubleConfirm.prototype.doCountdown = function() {
+		// Save countdown classes for the current run (configured classes minus the ones that are already set)
+		var currentElementClasses = this.$element.attr('class').split(' ');
+		this.currentCountdownClasses = this.options["countdownCss"].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+
 		// Save original contents and set counter
 		this.original = $.trim(this.$element.html());
 		this.countdown = parseInt(this.options["countdown"], 10);
 
 		// Make button display the disabled countdown state
-		this.$element.toggleClass(this.options["countdownCss"]);
+		this.$element.addClass(this.currentCountdownClasses);
 		this.$element.blur();
 
 		// Start ticking
@@ -93,8 +101,13 @@
 	DoubleConfirm.prototype.doCooldown = function() {
 		// Make button display cooldown state
 		this.$element.html(this.format());
-		this.$element.toggleClass(this.options["countdownCss"]);
-		this.$element.toggleClass(this.options["cooldownCss"]);
+		this.$element.removeClass(this.currentCountdownClasses);
+
+		// Save cooldown classes for the current run (configured classes minus the ones that are already set)
+		var currentElementClasses = this.$element.attr('class').split(' ');
+		this.currentCooldownClasses = this.options["cooldownCss"].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+
+		this.$element.addClass(this.currentCooldownClasses.join(' '));
 
 		// Start cooling down
 		this.cooldown();
@@ -112,7 +125,7 @@
 
 		// Make button display normal state
 		this.$element.html(this.original);
-		this.$element.toggleClass(this.options["cooldownCss"]);
+		this.$element.removeClass(this.currentCooldownClasses.join(' '));
 
 		// Call onReset handler
 		if($.isFunction(this.options["onReset"])) {
@@ -173,12 +186,12 @@
 	$.doubleConfirm = function(method, arg1, arg2) {
 		switch(method) {
 			case "setDefault":
-				if(typeof arg1 === "object") {
-					$.extend(DoubleConfirm.DEFAULTS, arg1);
-				} else if(typeof arg1 === "string") {
-					DoubleConfirm.DEFAULTS[arg1] = arg2;
-				}
-				break;
+			if(typeof arg1 === "object") {
+				$.extend(DoubleConfirm.DEFAULTS, arg1);
+			} else if(typeof arg1 === "string") {
+				DoubleConfirm.DEFAULTS[arg1] = arg2;
+			}
+			break;
 			default:
 			break;
 		}
