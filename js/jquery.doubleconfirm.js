@@ -24,7 +24,7 @@
 		this.cooldownTimeoutId = 0;
 		this.original = '';
 
-		// these will be re-set on every doubleconfirm run
+		// These will be re-set on every doubleconfirm run
 		this.currentCountdownClasses = [];
 		this.currentCooldownClasses = [];
 
@@ -77,8 +77,8 @@
 	// Starts the countdown phase
 	DoubleConfirm.prototype.doCountdown = function() {
 		// Save countdown classes for the current run (configured classes minus the ones that are already set)
-		var currentElementClasses = this.$element.attr('class').split(' ');
-		this.currentCountdownClasses = this.options['countdownCss'].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+		var currentElementClasses = this.$element.attr('class').split(/\s+/);
+		this.currentCountdownClasses = this.options['countdownCss'].split(/\s+/).filter( function(c) { return currentElementClasses.indexOf(c) === -1;}).join(' ');
 
 		// Save original contents and set counter
 		this.original = $.trim(this.$element.html());
@@ -101,13 +101,13 @@
 	DoubleConfirm.prototype.doCooldown = function() {
 		// Make button display cooldown state
 		this.$element.html(this.format());
-		this.$element.removeClass(this.currentCountdownClasses);
+		this.$element.removeClass(this.currentCountdownClasses.join(' '));
 
 		// Save cooldown classes for the current run (configured classes minus the ones that are already set)
-		var currentElementClasses = this.$element.attr('class').split(' ');
-		this.currentCooldownClasses = this.options['cooldownCss'].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+		var currentElementClasses = this.$element.attr('class').split(/\s+/);
+		this.currentCooldownClasses = this.options['cooldownCss'].split(/\s+/).filter( function(c) { return currentElementClasses.indexOf(c) === -1;}).join(' ');
 
-		this.$element.addClass(this.currentCooldownClasses.join(' '));
+		this.$element.addClass(this.currentCooldownClasses);
 
 		// Start cooling down
 		this.cooldown();
@@ -125,7 +125,7 @@
 
 		// Make button display normal state
 		this.$element.html(this.original);
-		this.$element.removeClass(this.currentCooldownClasses.join(' '));
+		this.$element.removeClass(this.currentCooldownClasses);
 
 		// Call onReset handler
 		if($.isFunction(this.options['onReset'])) {
