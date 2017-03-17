@@ -22,7 +22,7 @@
 		this.countdown = -1;
 		this.countdownTimeoutId = 0;
 		this.cooldownTimeoutId = 0;
-		this.original = "";
+		this.original = '';
 
 		// these will be re-set on every doubleconfirm run
 		this.currentCountdownClasses = [];
@@ -37,27 +37,27 @@
 
 	// The default config
 	DoubleConfirm.DEFAULTS = {
-		"format": "Really ##original##? ##counterp##",
-		"countdown": 2,
-		"countdownCss": "disabled",
-		"cooldown": 10,
-		"cooldownCss": "",
-		"onCountdown": null,
-		"onCooldown": null,
-		"onReset": null
+		'format': 'Really ##original##? ##counterp##',
+		'countdown': 2,
+		'countdownCss': 'disabled',
+		'cooldown': 10,
+		'cooldownCss': '',
+		'onCountdown': null,
+		'onCooldown': null,
+		'onReset': null
 	};
 
 	// Returns a string where the replacements in the given format were expanded
 	DoubleConfirm.prototype.format = function(format) {
-		if(typeof format === "undefined") {
-			format = this.options["format"];
+		if(typeof format === 'undefined') {
+			format = this.options['format'];
 		}
 
-		while(typeof format === "function") {
+		while(typeof format === 'function') {
 			format = format(this);
 		}
 
-		return format.replace("##original##", this.original).replace("##counter##", this.countdown).replace("##counterp##", ((this.countdown > 0) ? "(" + this.countdown + ")" : ""));
+		return format.replace('##original##', this.original).replace('##counter##', this.countdown).replace('##counterp##', ((this.countdown > 0) ? '(' + this.countdown + ')' : ''));
 	};
 
 	// Handles click on the bound element
@@ -78,11 +78,11 @@
 	DoubleConfirm.prototype.doCountdown = function() {
 		// Save countdown classes for the current run (configured classes minus the ones that are already set)
 		var currentElementClasses = this.$element.attr('class').split(' ');
-		this.currentCountdownClasses = this.options["countdownCss"].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+		this.currentCountdownClasses = this.options['countdownCss'].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
 
 		// Save original contents and set counter
 		this.original = $.trim(this.$element.html());
-		this.countdown = parseInt(this.options["countdown"], 10);
+		this.countdown = parseInt(this.options['countdown'], 10);
 
 		// Make button display the disabled countdown state
 		this.$element.addClass(this.currentCountdownClasses);
@@ -92,8 +92,8 @@
 		this.tick();
 
 		// Call onCountdown handler
-		if($.isFunction(this.options["onCountdown"])) {
-			this.options["onCountdown"](this);
+		if($.isFunction(this.options['onCountdown'])) {
+			this.options['onCountdown'](this);
 		}
 	};
 
@@ -105,7 +105,7 @@
 
 		// Save cooldown classes for the current run (configured classes minus the ones that are already set)
 		var currentElementClasses = this.$element.attr('class').split(' ');
-		this.currentCooldownClasses = this.options["cooldownCss"].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
+		this.currentCooldownClasses = this.options['cooldownCss'].split(' ').filter( function(c) { return currentElementClasses.indexOf(c) === -1;});
 
 		this.$element.addClass(this.currentCooldownClasses.join(' '));
 
@@ -113,8 +113,8 @@
 		this.cooldown();
 
 		// Call onCooldown handler
-		if($.isFunction(this.options["onCooldown"])) {
-			this.options["onCooldown"](this);
+		if($.isFunction(this.options['onCooldown'])) {
+			this.options['onCooldown'](this);
 		}
 	};
 
@@ -128,8 +128,8 @@
 		this.$element.removeClass(this.currentCooldownClasses.join(' '));
 
 		// Call onReset handler
-		if($.isFunction(this.options["onReset"])) {
-			this.options["onReset"](this);
+		if($.isFunction(this.options['onReset'])) {
+			this.options['onReset'](this);
 		}
 	};
 
@@ -157,7 +157,7 @@
 			var that = this;
 			this.cooldownTimeoutId = setTimeout(function() {
 				that.doReset();
-			}, (parseInt(this.options["cooldown"], 10) * 1000));
+			}, (parseInt(this.options['cooldown'], 10) * 1000));
 		}
 	};
 
@@ -176,7 +176,7 @@
 				$this.data('double-confirm', instance);
 			}
 
-			if(typeof options === "string" && typeof instance[options] === "function") {
+			if(typeof options === 'string' && typeof instance[options] === 'function') {
 				instance[options].apply(instance, args);
 			}
 		});
@@ -185,10 +185,10 @@
 	// The static jQuery method
 	$.doubleConfirm = function(method, arg1, arg2) {
 		switch(method) {
-			case "setDefault":
-			if(typeof arg1 === "object") {
+			case 'setDefault':
+			if(typeof arg1 === 'object') {
 				$.extend(DoubleConfirm.DEFAULTS, arg1);
-			} else if(typeof arg1 === "string") {
+			} else if(typeof arg1 === 'string') {
 				DoubleConfirm.DEFAULTS[arg1] = arg2;
 			}
 			break;
@@ -198,7 +198,7 @@
 	};
 
 	// The Data-API listener
-	$(document).on("click.double-confirm.data-api", '[data-toggle="double-confirm"]', function(e) {
+	$(document).on('click.double-confirm.data-api', '[data-toggle="double-confirm"]', function(e) {
 		$(this).doubleConfirm('onClick', e);
 	});
 
