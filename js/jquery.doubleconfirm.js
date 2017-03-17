@@ -74,7 +74,7 @@
 	DoubleConfirm.prototype.doCountdown = function() {
 		// Save original contents and set counter
 		this.original = $.trim(this.$element.html());
-		this.countdown = parseInt(this.options["countdown"]);
+		this.countdown = parseInt(this.options["countdown"], 10);
 
 		// Make button display the disabled countdown state
 		this.$element.toggleClass(this.options["countdownCss"]);
@@ -133,7 +133,7 @@
 				that.tick();
 			}, 1000);
 		} else {
-			this.doCooldown()
+			this.doCooldown();
 		}
 	};
 
@@ -144,7 +144,7 @@
 			var that = this;
 			this.cooldownTimeoutId = setTimeout(function() {
 				that.doReset();
-			}, (parseInt(this.options["cooldown"]) * 1000));
+			}, (parseInt(this.options["cooldown"], 10) * 1000));
 		}
 	};
 
@@ -179,6 +179,8 @@
 					DoubleConfirm.DEFAULTS[arg1] = arg2;
 				}
 				break;
+			default:
+			break;
 		}
 	};
 
@@ -187,4 +189,4 @@
 		$(this).doubleConfirm('onClick', e);
 	});
 
-})(window.jQuery, window)
+})(window.jQuery, window);
