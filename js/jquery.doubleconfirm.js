@@ -25,8 +25,8 @@
 		this.original = '';
 
 		// These will be re-set on every doubleconfirm run
-		this.currentCountdownClasses = [];
-		this.currentCooldownClasses = [];
+		this.currentCountdownClasses = '';
+		this.currentCooldownClasses = '';
 
 		// Add click eventhandler
 		var that = this;
@@ -101,7 +101,7 @@
 	DoubleConfirm.prototype.doCooldown = function() {
 		// Make button display cooldown state
 		this.$element.html(this.format());
-		this.$element.removeClass(this.currentCountdownClasses.join(' '));
+		this.$element.removeClass(this.currentCountdownClasses);
 
 		// Save cooldown classes for the current run (configured classes minus the ones that are already set)
 		var currentElementClasses = this.$element.attr('class').split(/\s+/);
